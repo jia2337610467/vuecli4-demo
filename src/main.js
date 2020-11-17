@@ -4,6 +4,11 @@ import router from './router'
 import store from './store/index'
 import filters from './filters/index'
 import wechat from '@/common/wechat/index'
+import { callhandler } from './util/bridge'
+
+// 挂载 jsBridge
+Vue.prototype.$callhandler = callhandler
+
 Vue.use(wechat);
 // 注入全局过滤器
 Object.keys(filters).forEach(item => {

@@ -1,12 +1,12 @@
 import * as type from './mutations_types'
-import jsCookie from 'js-cookie'
+import { getToken, getId, getUser } from '@/util/jsCookie'
 
 export default {
     namespaced: true,
     state: {
-        token: jsCookie.get('OilCardToken') || '',
-        id: jsCookie.get('OilCardId') || '',
-        user: jsCookie.getJSON('OilCardUser') || {}
+        token: getToken() || '',
+        id: getId() || '',
+        user: getUser() || {}
     },
     mutations: {
         [type.LOGIN](state, data) {
@@ -18,11 +18,7 @@ export default {
     },
     actions: {
         login(state, data) {
-            try {
-                state.commit(type.LOGIN, data);
-            } catch (error) {
-
-            }
+            state.commit(type.LOGIN, data);
         }
     },
     getters: {
@@ -30,7 +26,6 @@ export default {
             return state.token
         },
         user(state) {
-            console.log('state', state);
             return state.user
         }
     }
