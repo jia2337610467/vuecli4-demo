@@ -2,6 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import store from 'store/index'
+
+import jsCookie from 'js-cookie'
+import { callhandler } from './assets/js/bridge'
+import { checkUserRegiste, checkUserLogin } from '@/api/login'
+
 Vue.use(Router)
 const router = new Router({
     routes: [
@@ -10,16 +15,13 @@ const router = new Router({
             name: 'home',
             component: Home,
             meta: {
-                auth: false, // 是否需要登录
+                auth: true, // 是否需要登录
                 keepAlive: true // 是否缓存组件
             }
         },
         {
             path: '/about',
             name: 'about',
-            // route level code-splitting
-            // this generates a separate chunk (about.[hash].js) for this route
-            // which is lazy-loaded when the route is visited.
             component: () =>
                 import(/* webpackChunkName: "about" */ './views/About.vue'),
             meta: {
@@ -55,7 +57,6 @@ history.setItem('/', 0)
 
 // 全局路由钩子函数 对全局有效
 router.beforeEach((to, from, next) => {
-    let auth = to.meta.auth
     let token = store.getters['login/token'];
     // 当跳转时携带指定方向参数则优先使用指定参数
     if (to.params.direction) {
@@ -77,19 +78,62 @@ router.beforeEach((to, from, next) => {
             store.commit('updateDirection', 'forward')
         }
     }
-    if (auth) { // 需要登录
-        if (token) {
-            next()
-        } else {
+    console.log(to.name, to.fullPath);
+    if (token) {
+        next()
+    } else {
+        if (to.name !== 'login') {
             next({
                 path: '/login',
                 query: {
                     redirect: to.fullPath
                 }
             })
+        } else {
+            next()
         }
-    } else {
-        next()
+
+        try {
+            callhandler('getUserInfo', (res) => {
+                const resData = JSON.parse(res);
+                jsCookie.set('OilCardUser', res)
+                checkUserRegiste(resData.mobile, resData.token).then(res => {
+                    if (res.data === false) {
+                        // 未注册
+                        if (to.name === 'login') {
+                            next()
+                        } else {
+                            next({
+                                path: '/login',
+                                query: {
+                                    redirect: to.fullPath
+                                }
+                            })
+                        }
+                    } else {
+                        // 已注册
+                        checkUserLogin(resData.mobile, resData.userName, resData.token).then(e => {
+                            if (e.code === 0) {
+                                // $.cookie('MemberId', e.data.id)
+                                // $.cookie('ShopMemberUserToken', e.data.token, {
+                                //     path: '/'
+                                // })
+                                jsCookie.set('OilCardId', e.data.id)
+                                jsCookie.set('OilCardToken', e.data.token)
+                                store.dispatch('login', { id: e.data.id, token: e.data.token, user: resData })
+                                if (to.name === 'login') {
+                                    next({ path: '/' })
+                                } else {
+                                    next()
+                                }
+                            }
+                        })
+                    }
+                })
+            })
+        } catch {
+        }
     }
 })
+
 export default router

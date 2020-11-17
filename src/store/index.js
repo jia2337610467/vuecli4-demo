@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     modules: { login, index },
     state: {
-        direction: 'forward'
+        direction: ''
     },
     mutations: {
         updateDirection (state, direction) {

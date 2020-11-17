@@ -1,43 +1,27 @@
 import * as type from './mutations_types'
-import { login } from 'api/index'
-import { Toast } from 'mint-ui';
+import jsCookie from 'js-cookie'
+
 export default {
     namespaced: true,
     state: {
-        token: localStorage.getItem('token') || '',
-        user: JSON.parse(localStorage.getItem('userDate')) || {}
+        token: jsCookie.get('OilCardToken') || '',
+        id: jsCookie.get('OilCardId') || '',
+        user: jsCookie.getJSON('OilCardUser') || {}
     },
     mutations: {
-
         [type.LOGIN](state, data) {
-            let userDate = data.data;
+            const userDate = data;
             state.token = userDate.token;
-            state.user = userDate;
-            localStorage.setItem('token', userDate.token)
-            localStorage.setItem('userDate', JSON.stringify(userDate))
+            state.user = userDate.user;
+            state.id = userDate.id;
         }
-
     },
     actions: {
-        async login(state, data) {
+        login(state, data) {
             try {
-                let res = await login({
-                    username: data.username,
-                    password: data.password
-                })
-                state.commit(type.LOGIN, res);
-                Toast({
-                    message: '登录成功',
-                    position: 'middle',
-                    duration: 2000
-                });
-                setTimeout(() => {
-                    const redirect = data.$route.query.redirect || '/';
-                    data.$router.replace({
-                        path: redirect
-                    })
-                }, 3000);
+                state.commit(type.LOGIN, data);
             } catch (error) {
+
             }
         }
     },

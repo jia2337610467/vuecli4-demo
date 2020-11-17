@@ -1,40 +1,31 @@
 <template>
-    <div class="home">
-        <div id="nav">
-            <router-link to="/">Home</router-link>|
-            <router-link to="/about">About</router-link>
-        </div>
-<div @click='test2333()'>
-    233333
-</div>
-        <img alt="Vue logo" src="../assets/logo.png">
-        <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="home">
+    <van-nav-bar title="首页" left-text="返回" right-text="记录" left-arrow  />
+    <div id="nav">
+      <router-link to="/">Home</router-link>
+      <router-link to="/about">About</router-link>
     </div>
+    <div>
+        获取token:
+    </div>
+    <module msg="Welcome to Your Vue.js App" />
+  </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue';
+import module from '@/components/module.vue';
 import { getIndex } from 'api/index';
-import { Toast } from 'mint-ui'
+import { Toast, NavBar } from 'vant';
 export default {
     name: 'home',
     components: {
-        HelloWorld
+        module,
+        [NavBar.name]: NavBar
     },
-    async created() {
-        try {
-            await getIndex({ pageSiza: 100, num: 10 });
-        } catch (err) {
-            Toast({
-                message: '这里是home页面的error提示',
-                position: 'bottom',
-                duration: 2000
-            });
-        }
+    created() {
+        this.test2333();
     },
-    mounted() {
-    },
+    mounted() {},
     methods: {
         async test2333() {
             try {
@@ -43,7 +34,7 @@ export default {
                 Toast({
                     message: '这里是home页面状态码不为200的error提示',
                     position: 'bottom',
-                    duration: 7000
+                    duration: 2000
                 });
                 console.log('err', err);
             }
