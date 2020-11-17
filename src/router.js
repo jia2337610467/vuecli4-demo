@@ -6,6 +6,7 @@ import store from 'store/index'
 import { setToken, setId, setUser } from '@/util/jsCookie'
 import { checkUserRegiste, checkUserLogin } from '@/api/login'
 import { callhandler } from './util/bridge'
+import { storage } from './util/storage'
 
 Vue.use(Router)
 const router = new Router({
@@ -105,6 +106,8 @@ router.beforeEach((to, from, next) => {
                     if (to.name === 'login') {
                         next()
                     } else {
+                        storage.set('pathName', to.name)
+                        storage.set('pathQuery', to.query)
                         next({
                             path: '/login',
                             query: {

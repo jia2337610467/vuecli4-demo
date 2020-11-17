@@ -1,10 +1,6 @@
 <template>
   <div class="home">
     <van-nav-bar title="首页" left-text="返回" right-text="记录" left-arrow  />
-    <div id="nav">
-      <router-link to="/">Home</router-link>
-      <router-link to="/about">About</router-link>
-    </div>
     <div>
         获取token:
     </div>

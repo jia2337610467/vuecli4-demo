@@ -29,6 +29,7 @@
 
 <script>
 import { checkUserLogin } from '@/api/login';
+import { storage } from '@/util/storage'
 import { Toast } from 'vant';
 
 export default {
@@ -56,8 +57,8 @@ export default {
             this.$callhandler('handleClose');// 拒绝授权
         },
         _getUserInfo() {
-            this.fullPathName = this.$storage.get('pathName');
-            this.fullPathquery = this.$storage.get('pathQuery');
+            this.fullPathName = storage.get('pathName');
+            this.fullPathquery = storage.get('pathQuery');
             // 获取用户info
             this.$callhandler('getUserInfo', (res) => {
                 let resData = JSON.parse(res);

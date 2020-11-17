@@ -8,7 +8,7 @@
 // 判断终端
 const u = navigator.userAgent
 const isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1
-const isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
+// const isIOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)
 // ios 使用时的初始化方法
 const iosFunction = (callback) => {
     if (window.WebViewJavascriptBridge) {
