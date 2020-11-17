@@ -1,7 +1,6 @@
 <template>
     <div class="hello">
        组件接受值: {{msg}}
-       <img alt="Vue logo" src="../assets/logo.png">
     </div>
 </template>
 

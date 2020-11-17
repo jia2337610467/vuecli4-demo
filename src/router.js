@@ -81,8 +81,6 @@ router.beforeEach((to, from, next) => {
         }
     }
 
-    console.log(to.name, to.query);
-
     if (token) {
         if (to.name === 'login') { next({ path: '/' }) } else next()
     } else {

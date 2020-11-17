@@ -4,9 +4,9 @@ import router from './router'
 import store from './store/index'
 import filters from './filters/index'
 import wechat from '@/common/wechat/index'
-import { callhandler } from './util/bridge'
-
+import 'amfe-flexible';
 // 挂载 jsBridge
+import { callhandler } from './util/bridge'
 Vue.prototype.$callhandler = callhandler
 
 Vue.use(wechat);

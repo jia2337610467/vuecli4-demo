@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <van-nav-bar title="首页" left-text="返回" right-text="记录" left-arrow  />
-    <div>
-        获取token:
+    <van-nav-bar title="工匠人油卡" right-text="充值记录" />
+    <div class="card">
+
     </div>
     <module msg="Welcome to Your Vue.js App" />
   </div>
@@ -21,6 +21,11 @@ export default {
     created() {
         this.test2333();
     },
+    data() {
+        return {
+
+        }
+    },
     mounted() {},
     methods: {
         async test2333() {
@@ -38,3 +43,10 @@ export default {
     }
 };
 </script>
+<style lang="scss" scoped>
+    .card{
+        margin: 10px 4%;
+        height: 200px;
+        box-shadow: 1px 0px 4px 4px yellow;
+    }
+</style>

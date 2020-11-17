@@ -107,11 +107,12 @@ module.exports = {
         loaderOptions: {
             postcss: {
                 // 这是rem适配的配置
-                // plugins: [
-                //     require('postcss-px2rem')({
-                //         remUnit: 100
-                //     })
-                // ]
+                plugins: [
+                    require('postcss-pxtorem')({
+                        remUnit: 37.5,
+                        propList: ['*']
+                    })
+                ]
             },
             sass: {
                 data: '@import "style/_mixin.scss";@import "style/_variables.scss";' // 全局引入
