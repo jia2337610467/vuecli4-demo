@@ -21,20 +21,20 @@ const router = new Router({
             }
         },
         {
-            path: '/about',
-            name: 'about',
+            path: '/login',
+            name: 'login',
             component: () =>
-                import(/* webpackChunkName: "about" */ './views/About.vue'),
+                import('./views/login.vue'),
             meta: {
-                auth: true,
+                auth: false,
                 keepAlive: true
             }
         },
         {
-            path: '/login',
-            name: 'login',
+            path: '/fail',
+            name: 'fail',
             component: () =>
-                import(/* webpackChunkName: "login" */ './views/login.vue'),
+                import('./views/fail.vue'),
             meta: {
                 auth: false,
                 keepAlive: true
@@ -42,10 +42,10 @@ const router = new Router({
         },
         {
             path: '*', // 未匹配到路由时重定向
-            redirect: '/',
+            redirect: '/fail',
             meta: {
-                // auth: true,
-                // keepAlive: true
+                auth: false,
+                keepAlive: false
             }
         }
     ]

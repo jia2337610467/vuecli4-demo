@@ -10,16 +10,12 @@
 
 <script>
 import module from '@/components/module.vue';
-import { getIndex } from 'api/index';
-import { Toast, NavBar } from 'vant';
+import { NavBar } from 'vant';
 export default {
     name: 'home',
     components: {
         module,
         [NavBar.name]: NavBar
-    },
-    created() {
-        this.test2333();
     },
     data() {
         return {
@@ -27,20 +23,7 @@ export default {
         }
     },
     mounted() {},
-    methods: {
-        async test2333() {
-            try {
-                await getIndex({ pageSiza: 100, num: 10 });
-            } catch (err) {
-                Toast({
-                    message: '这里是home页面状态码不为200的error提示',
-                    position: 'bottom',
-                    duration: 2000
-                });
-                console.log('err', err);
-            }
-        }
-    }
+    methods: {}
 };
 </script>
 <style lang="scss" scoped>

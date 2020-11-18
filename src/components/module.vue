@@ -22,6 +22,6 @@ export default {
 </script>
 <style scoped lang="scss">
 .hello{
-    font-size:.32rem;
+    font-size: 18px;
 }
 </style>
