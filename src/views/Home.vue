@@ -4,7 +4,7 @@
     <div class="card">
 
     </div>
-    <module msg="Welcome to Your Vue.js App" />
+    <module msg="工匠人油卡" />
   </div>
 </template>
 
@@ -28,8 +28,10 @@ export default {
 </script>
 <style lang="scss" scoped>
     .card{
+        background-color: #FFF;
         margin: 10px 4%;
         height: 200px;
-        box-shadow: 1px 0px 4px 4px yellow;
+        border-radius: 5px;
+        box-shadow: 1px 0px 4px 4px rgb(223, 223, 222);
     }
 </style>

@@ -3,8 +3,11 @@ import qs from 'qs'
 import store from 'store/index'
 import { Toast } from 'vant'
 
-axios.defaults.timeout = 12000 // 请求超时时间
-axios.defaults.baseURL = process.env.VUE_APP_BASE_URL // 获取当前环境url
+axios.create({
+    baseURL: process.env.VUE_APP_BASE_URL, // 基础地址
+    timeout: 12000 // 请求超时时间
+});
+
 // post请求头的设置
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
 
@@ -62,6 +65,7 @@ axios.interceptors.response.use(
         return Promise.reject(error.response)
     }
 )
+
 /**
  * 封装get方法，对应get请求
  * @param {String} url [请求的url地址]
