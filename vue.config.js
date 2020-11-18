@@ -108,7 +108,7 @@ module.exports = {
             postcss: {
                 // 这是rem适配的配置
                 plugins: [
-                    require('postcss-pxtorem')({
+                    require('postcss-px2rem')({
                         remUnit: 37.5,
                         propList: ['*']
                     })
